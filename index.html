@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style>
+  </style>
+</head>
+<body>
+    <div id="outerGrid", class="wrapper">
+
+    </div>
+  <script>
+    let outerGrid = document.querySelector('#outerGrid');
+    let innerGrid = [];
+    let gridHeight = 6;
+    let gridWidth = 6;
+    let gridSize = gridHeight * gridWidth;
+    
+    for (i=0;i<gridSize;i++) {
+      innerGrid[i] = document.createElement('div');
+      innerGrid[i].textContent = i + 1;
+      outerGrid.appendChild(innerGrid[i]);
+    }
+
+    outerGrid.style.display = "grid";
+    outerGrid.style.setProperty('grid-template-columns','repeat(' + gridWidth + ',100px)');
+    outerGrid.style.gridGap = "10px";
+
+    console.log(innerGrid);
+  </script>
+</body>
+</html>
