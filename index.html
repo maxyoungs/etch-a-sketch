@@ -9,22 +9,29 @@
     .wrapper {
       border-style: solid;
       border-color: black;
-      padding: 5px;
+      padding: 0px;
+      height: 700px;
+      width: 800px
+    }
+    .square {
+      border-style: none;
     }
   </style>
 </head>
 <body>
     <button id='reset'>Reset</button>
     <div id="outerGrid", class="wrapper">
-
+      
     </div>
   <script>
     
     //initial grid row and column parameters
-    let gridHeight = 4;
-    let gridWidth = 4;
+    let gridHeight = 8;
+    let gridWidth = 8;
 
     setupGrid(gridHeight,gridWidth); //initial call to start with a grid on the screen
+    setHoverColor();
+
     
     //function used to setup the grid of DIVs based on the number of rows and columns provided
     function setupGrid(gridHeight,gridWidth) {
@@ -32,16 +39,18 @@
       let innerGrid = [];
       let gridSize = gridHeight * gridWidth;
 
+      let wrapperWidth = 800;
+      let squareWidth = wrapperWidth / gridWidth;
+
       for (i=0;i<gridSize;i++) {
         innerGrid[i] = document.createElement('div');
-        innerGrid[i].textContent = i + 1;
         innerGrid[i].classList.add("square");
         outerGrid.appendChild(innerGrid[i]);
       }
-
+      
       outerGrid.style.display = "grid";
-      outerGrid.style.setProperty('grid-template-columns','repeat(' + gridWidth + ',100px)');
-      outerGrid.style.gridGap = "10px";
+      outerGrid.style.setProperty('grid-template-columns','repeat(' + gridWidth + ',' + squareWidth + 'px)');
+      outerGrid.style.gridGap = "0px";
     }
 
     //function used to remove the grid of DIVs based on the number of rows and columns proviided
@@ -54,13 +63,16 @@
       })
     }
 
-    let squares = document.querySelectorAll('.square');
+    //function to set the hover color event listener on each of the grid squares
+    function setHoverColor() {
+      let squares = document.querySelectorAll('.square');
 
-    squares.forEach((square) => {
-      square.addEventListener('mouseenter', (e) => {
-        square.classList.add("hoverColor");
-      });
-    })
+      squares.forEach((square) => {
+        square.addEventListener('mouseenter', (e) => {
+          square.classList.add("hoverColor");
+        });
+      })
+    }
 
     let reset = document.querySelector('#reset');
 
@@ -69,6 +81,7 @@
       gridHeight = prompt("How many pixels would you like?");
       gridWidth = gridHeight;
       setupGrid(gridHeight,gridWidth);
+      setHoverColor();
     })
 
 
